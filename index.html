@@ -78,12 +78,12 @@
         <div class="grid">
             <figure class="card">
                 <img id="img-alt-filename" data-trap-id="T-ALT-FILENAME" data-expected="flag"
-                     src="./assetts/images/3576_3364107859_5c3ef0afc2_400_300_nofilter.jpg" alt="IMG_2041.jpg">
+                     src="assets/images/3576_3364107859_5c3ef0afc2_400_300_nofilter.jpg" alt="IMG_2041.jpg">
                 <figcaption class="cap"><span class="badge">flag</span> alt is a filename</figcaption>
             </figure>
             <figure class="card">
                 <img id="img-alt-generic" data-trap-id="T-ALT-GENERIC" data-expected="flag"
-                     src="https://loremflickr.com/400/300/technology?lock=102" alt="image">
+                     src="assets/images/65535_52042267553_a2365d0cab_400_300_nofilter.jpg" alt="image">
                 <figcaption class="cap"><span class="badge">flag</span> generic placeholder alt</figcaption>
             </figure>
             <figure class="card">
@@ -95,20 +95,20 @@
             <figure class="card">
                 <!-- image is a CAT; alt claims telecom install -->
                 <img id="img-alt-mismatch-gross" data-trap-id="T-ALT-MISMATCH-GROSS" data-expected="flag"
-                     src="https://loremflickr.com/400/300/cat?lock=104"
+                     src="assets/images/3082_2792903202_6a68a273f9_400_300_nofilter.jpg"
                      alt="Technicians installing fiber-optic cables on a telecom tower">
                 <figcaption class="cap"><span class="badge">flag</span> gross mismatch (cat → telecom)</figcaption>
             </figure>
             <figure class="card">
                 <!-- image is a DOG; alt claims a cat — subtle, same domain -->
                 <img id="img-alt-mismatch-subtle" data-trap-id="T-ALT-MISMATCH-SUBTLE" data-expected="flag"
-                     src="https://loremflickr.com/400/300/dog?lock=105"
+                     src="assets/images/65535_51622903483_bdb2b1b685_z_400_300_nofilter.jpg"
                      alt="A domestic cat lying on a carpet">
                 <figcaption class="cap"><span class="badge">flag</span> subtle mismatch (dog → cat)</figcaption>
             </figure>
             <figure class="card">
                 <img id="img-alt-redundant" data-trap-id="T-ALT-REDUNDANT" data-expected="flag"
-                     src="https://loremflickr.com/400/300/office?lock=106"
+                     src="assets/images/1866_43675626235_7b4872bfa6_400_300_nofilter.jpg"
                      alt="Image of a photo showing a picture of an office">
                 <figcaption class="cap"><span class="badge">flag</span> redundant "image of…" phrasing</figcaption>
             </figure>
@@ -121,7 +121,7 @@
             <figure class="card">
                 <!-- CONTROL: category-correct alt for a server-room photo -->
                 <img id="img-alt-good" data-trap-id="T-ALT-GOOD" data-expected="pass"
-                     src="https://loremflickr.com/400/300/server?lock=108"
+                     src="assets/images/2395_2110110694_81810dbf9e_400_300_nofilter.jpg"
                      alt="Network server equipment mounted in a data-center rack">
                 <figcaption class="cap"><span class="badge pass">pass</span> good, accurate alt</figcaption>
             </figure>
@@ -129,7 +129,7 @@
                 <!-- CONTROL: genuinely decorative divider, correctly empty -->
                 <img id="img-alt-decorative-ok" data-trap-id="T-ALT-DECORATIVE-OK" data-expected="pass"
                      role="presentation"
-                     src="https://loremflickr.com/400/60/texture?lock=109" alt="">
+                     src="assets/images/65535_54222921059_dfc4928f7c_400_60_nofilter.jpg" alt="">
                 <figcaption class="cap"><span class="badge pass">pass</span> decorative, correctly empty</figcaption>
             </figure>
         </div>
@@ -143,29 +143,29 @@
         <div class="grid">
             <figure class="card">
                 <img id="img-lv-alt-filename" data-trap-id="LV-ALT-FILENAME" data-expected="flag" data-lang="lv"
-                     src="https://loremflickr.com/400/300/abstract?lock=201" alt="attels_2041.jpg">
+                     src="assets/images/3576_3364107859_5c3ef0afc2_400_300_nofilter.jpg" alt="attels_2041.jpg">
                 <figcaption class="cap"><span class="badge">flag</span> alt ir faila nosaukums</figcaption>
             </figure>
             <figure class="card">
                 <img id="img-lv-alt-generic" data-trap-id="LV-ALT-GENERIC" data-expected="flag" data-lang="lv"
-                     src="https://loremflickr.com/400/300/technology?lock=202" alt="attēls">
+                     src="assets/images/65535_52042267553_a2365d0cab_400_300_nofilter.jpg" alt="attēls">
                 <figcaption class="cap"><span class="badge">flag</span> vispārīgs alt ("attēls")</figcaption>
             </figure>
             <figure class="card">
                 <img id="img-lv-alt-mismatch-gross" data-trap-id="LV-ALT-MISMATCH-GROSS" data-expected="flag" data-lang="lv"
-                     src="https://loremflickr.com/400/300/cat?lock=204"
+                     src="assets/images/3082_2792903202_6a68a273f9_400_300_nofilter.jpg"
                      alt="Tehniķi uzstāda optiskās šķiedras kabeļus telekomunikāciju tornī">
                 <figcaption class="cap"><span class="badge">flag</span> rupja neatbilstība (kaķis → telekom)</figcaption>
             </figure>
             <figure class="card">
                 <img id="img-lv-alt-mismatch-subtle" data-trap-id="LV-ALT-MISMATCH-SUBTLE" data-expected="flag" data-lang="lv"
-                     src="https://loremflickr.com/400/300/dog?lock=205"
+                     src="assets/images/65535_51622903483_bdb2b1b685_z_400_300_nofilter.jpg"
                      alt="Kaķis guļ uz paklāja">
                 <figcaption class="cap"><span class="badge">flag</span> smalka neatbilstība (suns → kaķis)</figcaption>
             </figure>
             <figure class="card">
                 <img id="img-lv-alt-good" data-trap-id="LV-ALT-GOOD" data-expected="pass" data-lang="lv"
-                     src="https://loremflickr.com/400/300/server?lock=208"
+                     src="assets/images/2395_2110110694_81810dbf9e_400_300_nofilter.jpg"
                      alt="Tīkla serveru aprīkojums datu centra skapī">
                 <figcaption class="cap"><span class="badge pass">pass</span> labs, precīzs alt</figcaption>
             </figure>
