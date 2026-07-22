@@ -1,163 +1,231 @@
 <!doctype html>
+<!--
+  Inclusify AI-scan trap fixture (IN-17).
+  Every trap element carries: id, data-trap-id (== ground-truth.json id),
+  data-expected ("flag" | "pass"), data-lang. See README.md + ground-truth.json.
+  Organic (pre-existing) traps are kept on purpose and prefixed O-.
+-->
 <html lang="lv">
 <head>
     <meta charset="UTF-8">
+    <!-- O-ZOOM: blocks pinch-zoom (WCAG 1.4.4 / 1.4.10). Kept intentionally. -->
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="Telekomunikācijas Būvprojekti Būvdarbi Projektēšana Uzlabojiet Savu Tīkls Internets Elektrība Projekti Būvniecība Profesionāli Rēzekne Novads Latvija Latgale Mājas Biznesa">
-    <meta name="description" content="Telekomunikāciju projektēšana visā Latvijā.">
-
-    <title>AZInc - Telekomunikāciju Tīklu Projektēšana Visā Latvijā, -10%, ja Rēzeknes novadā!</title>
-
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <script src="https://app.inclusifyapp.com/w/janiszogots.github.io.js" async></script>
+    <meta name="description" content="Inclusify AI-scan trap fixture — telekomunikāciju tīklu projektēšana (test site).">
+    <title>AZInc — AI-scan trap fixture</title>
+    <style>
+        :root { --ink: #1a1a1a; --line: #e2e2e2; --brand: #0066ff; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font: 16px/1.6 system-ui, sans-serif; color: var(--ink); background: #f5f5f3; }
+        .app { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
+        .main-header { display: flex; align-items: center; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+        .logo a { font-weight: 800; font-size: 22px; text-decoration: none; color: var(--brand); }
+        .header-items { display: flex; gap: 8px; margin-left: auto; }
+        .header-items button, .side-menu button { border: 0; background: transparent; font: inherit; padding: 8px 12px; cursor: pointer; border-radius: 8px; }
+        .header-items button[aria-selected="true"] { background: var(--brand); color: #fff; }
+        .side-menu { display: none; } /* mobile duplicate; kept for the duplicate-id trap */
+        section { padding: 36px 0; border-bottom: 1px solid var(--line); }
+        h1 { font-size: 30px; } h2 { font-size: 22px; margin-top: 0; } h4 { font-size: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+        .card img { display: block; width: 100%; height: 180px; object-fit: cover; background: #ddd; }
+        .card .cap { padding: 10px 12px; font-size: 13px; color: #555; }
+        .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 5px; background: #ffe9e9; color: #b00; }
+        .badge.pass { background: #e7f7ec; color: #087f3f; }
+        .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+        .row > * { margin: 4px 0; }
+        button.icon { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; }
+        a.btn, button.cta { display: inline-block; padding: 10px 16px; border-radius: 8px; background: var(--brand); color: #fff; text-decoration: none; border: 0; font: inherit; cursor: pointer; }
+        .lowcontrast { color: #bfbfbf; background: #ffffff; } /* T-CONTRAST-FAIL ~1.6:1 */
+        .goodcontrast { color: #1a1a1a; background: #ffffff; }
+        .lang-tag { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: .04em; }
+        footer { padding-top: 40px; color: #666; }
+        footer a { color: #666; }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    </style>
 </head>
 <body>
-<div class="loading-container">
-    <div class="loader"></div>
-    <div class="loader-text">Lūdzu uzgaidiet...</div>
-</div>
 <div class="app">
-    <header id="site-header" class="main-header relative">
-        <div class="logo">
-            <a href="/">AZInc</a>
-        </div>
-        <div class="header-items" role="tablist" aria-labelledby="channel-name">
-            <button
-                    id="tab-1"
-                    role="tab"
-                    aria-controls="tabPanel-1"
-                    aria-selected="true"
-                    tabindex="0"
-                    class="tracking-wide">
-                Sākums
-            </button>
-            <button
-                    id="tab-2"
-                    role="tab"
-                    aria-controls="tabPanel-2"
-                    aria-selected="false"
-                    tabindex="-1"
-                    class="tracking-wide">
-                Pakalpojumi
-            </button>
-            <button
-                    id="tab-3"
-                    role="tab"
-                    aria-controls="tabPanel-3"
-                    aria-selected="false"
-                    tabindex="-1"
-                    class="tracking-wide">
-                Par mums
-            </button>
-            <button
-                    id="tab-4"
-                    role="tab"
-                    aria-controls="tabPanel-4"
-                    aria-selected="false"
-                    tabindex="-1"
-                    class="tracking-wide">
-                Kontakti
-            </button>
-        </div>
-        <div id="menu-open" class="burger">
-            <svg viewBox="0 0 80 71" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.82785 15.6201H67.2021C68.5701 15.6201 69.6781 14.5121 69.6781 13.1441V3.24041C69.6781 1.87246 68.5701 0.764481 67.2021 0.764481H2.82785C1.45989 0.764481 0.351913 1.87246 0.351913 3.24041V13.1441C0.351913 14.5121 1.45989 15.6201 2.82785 15.6201ZM77.1059 27.9997H12.7316C11.3636 27.9997 10.2556 29.1077 10.2556 30.4757V40.3794C10.2556 41.7474 11.3636 42.8554 12.7316 42.8554H77.1059C78.4738 42.8554 79.5818 41.7474 79.5818 40.3794V30.4757C79.5818 29.1077 78.4738 27.9997 77.1059 27.9997ZM67.2021 55.235H2.82785C1.45989 55.235 0.351913 56.343 0.351913 57.711V67.6147C0.351913 68.9826 1.45989 70.0906 2.82785 70.0906H67.2021C68.5701 70.0906 69.6781 68.9826 69.6781 67.6147V57.711C69.6781 56.343 68.5701 55.235 67.2021 55.235Z" fill="white"/>
-            </svg>
+    <!-- ===== Header / nav (organic traps preserved) ===== -->
+    <header id="site-header" class="main-header">
+        <div class="logo"><a href="/">AZInc</a></div>
+        <!-- O-DUP-ID: tab-1..tab-4 are duplicated in the .side-menu below -->
+        <div class="header-items" role="tablist" aria-label="Galvenā navigācija">
+            <button id="tab-1" role="tab" aria-controls="tabPanel-1" aria-selected="true" tabindex="0">Sākums</button>
+            <button id="tab-2" role="tab" aria-controls="tabPanel-2" aria-selected="false" tabindex="-1">Pakalpojumi</button>
+            <button id="tab-3" role="tab" aria-controls="tabPanel-3" aria-selected="false" tabindex="-1">Par mums</button>
+            <button id="tab-4" role="tab" aria-controls="tabPanel-4" aria-selected="false" tabindex="-1">Kontakti</button>
         </div>
     </header>
-    <div class="side-menu">
-        <div class="relative">
-            <div id="menu-close" class="burger">
-                <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M39.5229 0C17.6897 0 0 17.6897 0 39.5229C0 61.3562 17.6897 79.0459 39.5229 79.0459C61.3562 79.0459 79.0459 61.3562 79.0459 39.5229C79.0459 17.6897 61.3562 0 39.5229 0ZM39.5229 71.3963C21.9129 71.3963 7.6496 57.133 7.6496 39.5229C7.6496 21.9129 21.9129 7.6496 39.5229 7.6496C57.133 7.6496 71.3963 21.9129 71.3963 39.5229C71.3963 57.133 57.133 71.3963 39.5229 71.3963ZM55.7465 29.6103L45.8339 39.5229L55.7465 49.4355C56.4955 50.1846 56.4955 51.3958 55.7465 52.1448L52.1448 55.7465C51.3958 56.4955 50.1846 56.4955 49.4355 55.7465L39.5229 45.8339L29.6103 55.7465C28.8613 56.4955 27.6501 56.4955 26.9011 55.7465L23.2994 52.1448C22.5504 51.3958 22.5504 50.1846 23.2994 49.4355L33.212 39.5229L23.2994 29.6103C22.5504 28.8613 22.5504 27.6501 23.2994 26.9011L26.9011 23.2994C27.6501 22.5504 28.8613 22.5504 29.6103 23.2994L39.5229 33.212L49.4355 23.2994C50.1846 22.5504 51.3958 22.5504 52.1448 23.2994L55.7465 26.9011C56.4955 27.6501 56.4955 28.8613 55.7465 29.6103Z" fill="white"/>
-                </svg>
-            </div>
-            <button
-                    id="tab-1"
-                    role="tab"
-                    aria-controls="tabPanel-1"
-                    aria-selected="true"
-                    tabindex="0"
-                    class="tracking-wide">
-                Sākums
-            </button>
-            <button
-                    id="tab-2"
-                    role="tab"
-                    aria-controls="tabPanel-2"
-                    aria-selected="false"
-                    tabindex="-1"
-                    class="tracking-wide">
-                Pakalpojumi
-            </button>
-            <button
-                    id="tab-3"
-                    role="tab"
-                    aria-controls="tabPanel-3"
-                    aria-selected="false"
-                    tabindex="-1"
-                    class="tracking-wide">
-                Par mums
-            </button>
-            <button
-                    id="tab-4"
-                    role="tab"
-                    aria-controls="tabPanel-4"
-                    aria-selected="false"
-                    tabindex="-1"
-                    class="tracking-wide">
-                Kontakti
-            </button>
+    <nav class="side-menu" aria-label="Mobilā navigācija">
+        <button id="tab-1" role="tab" aria-controls="tabPanel-1" aria-selected="true" tabindex="0">Sākums</button>
+        <button id="tab-2" role="tab" aria-controls="tabPanel-2" aria-selected="false" tabindex="-1">Pakalpojumi</button>
+        <button id="tab-3" role="tab" aria-controls="tabPanel-3" aria-selected="false" tabindex="-1">Par mums</button>
+        <button id="tab-4" role="tab" aria-controls="tabPanel-4" aria-selected="false" tabindex="-1">Kontakti</button>
+    </nav>
+
+    <!-- O-HEADING: page opens on <h4>, no <h1> — heading-order trap -->
+    <section id="tabPanel-1" role="tabpanel">
+        <h4>Enerģijas un telekomunikāciju risinājumi jūsu projektam</h4>
+        <p>Profesionāla elektroapgādes un telekomunikāciju sistēmu būvniecība visā Latvijā.</p>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- VISION / ALT-TEXT TRAPS — English                              -->
+    <!-- ============================================================= -->
+    <section lang="en">
+        <h2>Image alt-text traps — English</h2>
+        <div class="grid">
+            <figure class="card">
+                <img id="img-alt-filename" data-trap-id="T-ALT-FILENAME" data-expected="flag"
+                     src="https://loremflickr.com/400/300/abstract?lock=101" alt="IMG_2041.jpg">
+                <figcaption class="cap"><span class="badge">flag</span> alt is a filename</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-alt-generic" data-trap-id="T-ALT-GENERIC" data-expected="flag"
+                     src="https://loremflickr.com/400/300/technology?lock=102" alt="image">
+                <figcaption class="cap"><span class="badge">flag</span> generic placeholder alt</figcaption>
+            </figure>
+            <figure class="card">
+                <!-- informative image marked decorative -->
+                <img id="img-alt-empty-informative" data-trap-id="T-ALT-EMPTY-INFORMATIVE" data-expected="flag"
+                     src="https://loremflickr.com/400/300/diagram?lock=103" alt="">
+                <figcaption class="cap"><span class="badge">flag</span> informative image, empty alt</figcaption>
+            </figure>
+            <figure class="card">
+                <!-- image is a CAT; alt claims telecom install -->
+                <img id="img-alt-mismatch-gross" data-trap-id="T-ALT-MISMATCH-GROSS" data-expected="flag"
+                     src="https://loremflickr.com/400/300/cat?lock=104"
+                     alt="Technicians installing fiber-optic cables on a telecom tower">
+                <figcaption class="cap"><span class="badge">flag</span> gross mismatch (cat → telecom)</figcaption>
+            </figure>
+            <figure class="card">
+                <!-- image is a DOG; alt claims a cat — subtle, same domain -->
+                <img id="img-alt-mismatch-subtle" data-trap-id="T-ALT-MISMATCH-SUBTLE" data-expected="flag"
+                     src="https://loremflickr.com/400/300/dog?lock=105"
+                     alt="A domestic cat lying on a carpet">
+                <figcaption class="cap"><span class="badge">flag</span> subtle mismatch (dog → cat)</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-alt-redundant" data-trap-id="T-ALT-REDUNDANT" data-expected="flag"
+                     src="https://loremflickr.com/400/300/office?lock=106"
+                     alt="Image of a photo showing a picture of an office">
+                <figcaption class="cap"><span class="badge">flag</span> redundant "image of…" phrasing</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-alt-keyword-stuff" data-trap-id="T-ALT-KEYWORD-STUFF" data-expected="flag"
+                     src="https://loremflickr.com/400/300/internet?lock=107"
+                     alt="internet fiber telecom Latvia Rēzekne network cable install cheap best -10% AZInc">
+                <figcaption class="cap"><span class="badge">flag</span> SEO keyword-stuffed alt</figcaption>
+            </figure>
+            <figure class="card">
+                <!-- CONTROL: category-correct alt for a server-room photo -->
+                <img id="img-alt-good" data-trap-id="T-ALT-GOOD" data-expected="pass"
+                     src="https://loremflickr.com/400/300/server?lock=108"
+                     alt="Network server equipment mounted in a data-center rack">
+                <figcaption class="cap"><span class="badge pass">pass</span> good, accurate alt</figcaption>
+            </figure>
+            <figure class="card">
+                <!-- CONTROL: genuinely decorative divider, correctly empty -->
+                <img id="img-alt-decorative-ok" data-trap-id="T-ALT-DECORATIVE-OK" data-expected="pass"
+                     role="presentation"
+                     src="https://loremflickr.com/400/60/texture?lock=109" alt="">
+                <figcaption class="cap"><span class="badge pass">pass</span> decorative, correctly empty</figcaption>
+            </figure>
         </div>
-    </div>
-    <section id="tabPanel-1" class="wrapper flex-col bg" role='tabpanel'>
-        <div class="content" id="content">
-            <h4>
-                Enerģijas risinājumi jūsu projektam
-            </h4>
-            <p>
-                Mēs piedāvājam profesionālas elektroapgādes un telekomunikāciju sistēmu būvniecības pakalpojumus, pielāgotus
-                jūsu konkrētajiem projektiem un vajadzībām.
-            </p>
-            <button id="show-more-btn" aria-controls="tabPanel-2">
-                Uzzināt vairāk
-            </button>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- VISION / ALT-TEXT TRAPS — Latvian (parallel subset)            -->
+    <!-- ============================================================= -->
+    <section>
+        <h2>Attēlu alt-teksta lamatas — Latviešu <span class="lang-tag">(parallel LV)</span></h2>
+        <div class="grid">
+            <figure class="card">
+                <img id="img-lv-alt-filename" data-trap-id="LV-ALT-FILENAME" data-expected="flag" data-lang="lv"
+                     src="https://loremflickr.com/400/300/abstract?lock=201" alt="attels_2041.jpg">
+                <figcaption class="cap"><span class="badge">flag</span> alt ir faila nosaukums</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-lv-alt-generic" data-trap-id="LV-ALT-GENERIC" data-expected="flag" data-lang="lv"
+                     src="https://loremflickr.com/400/300/technology?lock=202" alt="attēls">
+                <figcaption class="cap"><span class="badge">flag</span> vispārīgs alt ("attēls")</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-lv-alt-mismatch-gross" data-trap-id="LV-ALT-MISMATCH-GROSS" data-expected="flag" data-lang="lv"
+                     src="https://loremflickr.com/400/300/cat?lock=204"
+                     alt="Tehniķi uzstāda optiskās šķiedras kabeļus telekomunikāciju tornī">
+                <figcaption class="cap"><span class="badge">flag</span> rupja neatbilstība (kaķis → telekom)</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-lv-alt-mismatch-subtle" data-trap-id="LV-ALT-MISMATCH-SUBTLE" data-expected="flag" data-lang="lv"
+                     src="https://loremflickr.com/400/300/dog?lock=205"
+                     alt="Kaķis guļ uz paklāja">
+                <figcaption class="cap"><span class="badge">flag</span> smalka neatbilstība (suns → kaķis)</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-lv-alt-good" data-trap-id="LV-ALT-GOOD" data-expected="pass" data-lang="lv"
+                     src="https://loremflickr.com/400/300/server?lock=208"
+                     alt="Tīkla serveru aprīkojums datu centra skapī">
+                <figcaption class="cap"><span class="badge pass">pass</span> labs, precīzs alt</figcaption>
+            </figure>
         </div>
-        <div class="bg-fader"></div>
     </section>
-    <section id="tabPanel-2" class="wrapper flex-col" role='tabpanel'>
-        <header class="header">
-            <h4 class="text">Mūsu Pakalpojumi</h4>
-        </header>
+
+    <!-- ============================================================= -->
+    <!-- LINK & BUTTON LABEL TRAPS                                       -->
+    <!-- ============================================================= -->
+    <section lang="en">
+        <h2>Link &amp; button label traps</h2>
+        <div class="row">
+            <a class="btn" id="lnk-clickhere" data-trap-id="T-LINK-CLICKHERE" data-expected="flag"
+               href="/services.html">click here</a>
+            <a class="btn" id="lnk-readmore" data-trap-id="T-LINK-READMORE" data-expected="flag"
+               href="/blog.html">read more</a>
+            <!-- icon-only button, no accessible name -->
+            <button class="icon" id="btn-icon-unlabeled" data-trap-id="T-BTN-ICON-UNLABELED" data-expected="flag">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="#333" stroke-width="2" fill="none"/></svg>
+            </button>
+            <button class="cta" id="btn-vague" data-trap-id="T-BTN-VAGUE" data-expected="flag">OK</button>
+
+            <!-- CONTROLS -->
+            <a class="btn" id="lnk-good" data-trap-id="T-LINK-GOOD" data-expected="pass"
+               href="/fiber-case-study.html">Read our Rēzekne fiber-rollout case study</a>
+            <button class="cta" id="btn-good" data-trap-id="T-BTN-GOOD" data-expected="pass">Download 2024 price list (PDF, 240&nbsp;KB)</button>
+        </div>
+
+        <h2 style="margin-top:32px;">Saišu un pogu lamatas <span class="lang-tag">(parallel LV)</span></h2>
+        <div class="row">
+            <a class="btn" id="lnk-lv-clickhere" data-trap-id="LV-LINK-CLICKHERE" data-expected="flag" data-lang="lv"
+               href="/pakalpojumi.html">spied šeit</a>
+            <button class="cta" id="btn-lv-vague" data-trap-id="LV-BTN-VAGUE" data-expected="flag" data-lang="lv">Labi</button>
+            <a class="btn" id="lnk-lv-good" data-trap-id="LV-LINK-GOOD" data-expected="pass" data-lang="lv"
+               href="/gadijums.html">Lasīt mūsu Rēzeknes optikas ieviešanas pētījumu</a>
+        </div>
     </section>
-    <section id="tabPanel-3" class="wrapper flex-col" role='tabpanel'>
-        <header class="header">
-            <h4 class="text">Par mums</h4>
-        </header>
+
+    <!-- ============================================================= -->
+    <!-- CONTRAST TRAPS (drive the "contrast-adjusted color" fix path)  -->
+    <!-- ============================================================= -->
+    <section lang="en">
+        <h2>Contrast traps</h2>
+        <p class="lowcontrast" id="txt-contrast-fail" data-trap-id="T-CONTRAST-FAIL" data-expected="flag">
+            This paragraph is light grey on white (~1.6:1) and fails WCAG 1.4.3 contrast.
+        </p>
+        <p class="goodcontrast" id="txt-contrast-good" data-trap-id="T-CONTRAST-GOOD" data-expected="pass">
+            This paragraph is near-black on white and passes contrast comfortably.
+        </p>
     </section>
-    <section id="tabPanel-4" class="wrapper flex-col" role='tabpanel'>
-        <header class="header">
-            <h4 class="text">Kontakti</h4>
-        </header>
-    </section>
+
+    <!-- ===== Footer (organic trap preserved) ===== -->
     <footer>
-        <header class="foot-header">
-            <div class="logo"><a href="/">AZInc</a></div>
-            <div class="foot-items">
-                <p>Noderīgi</p>
-                <a href="/privacy-policy.html">Privātuma politika</a>
-                <a>Sīkdatņu politika</a>
-            </div>
-        </header>
-        <div class="foot-div">
-            <p>© 2023 AZogots. Visas autortiesības rezervētas.</p>
-        </div>
+        <div class="logo"><a href="/">AZInc</a></div>
+        <p>Noderīgi</p>
+        <a href="/privacy-policy.html">Privātuma politika</a>
+        <!-- O-LINK-NOHREF: anchor with no href — not focusable/operable -->
+        <a id="lnk-nohref" data-trap-id="O-LINK-NOHREF" data-expected="flag">Sīkdatņu politika</a>
+        <p>© 2023 AZInc. Visas autortiesības rezervētas.</p>
     </footer>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="./assets/js/main.js"></script>
 </body>
 </html>
