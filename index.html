@@ -119,6 +119,44 @@
                 <figcaption class="cap"><span class="badge">flag</span> SEO keyword-stuffed alt</figcaption>
             </figure>
             <figure class="card">
+                <img id="img-alt-keyword-stuff" data-trap-id="T-ALT-KEYWORD-STUFF" data-expected="flag"
+                     src="https://loremflickr.com/400/300/internet?lock=107"
+                     alt="internet fiber telecom Latvia Rēzekne network cable install cheap best -10% AZInc">
+                <figcaption class="cap"><span class="badge">flag</span> SEO keyword-stuffed alt</figcaption>
+            </figure>
+          <figure class="card">
+                <!-- image is a CAT; alt claims telecom install -->
+                <img id="img-alt-mismatch-gross" data-trap-id="T-ALT-MISMATCH-GROSS" data-expected="flag"
+                     src="assets/images/3082_2792903202_6a68a273f9_400_300_nofilter.jpg"
+                     alt="Technicians installing fiber-optic cables on a telecom tower">
+                <figcaption class="cap"><span class="badge">flag</span> gross mismatch (cat → telecom)</figcaption>
+            </figure>
+            <figure class="card">
+                <!-- image is a DOG; alt claims a cat — subtle, same domain -->
+                <img id="img-alt-mismatch-subtle" data-trap-id="T-ALT-MISMATCH-SUBTLE" data-expected="flag"
+                     src="assets/images/65535_51622903483_bdb2b1b685_z_400_300_nofilter.jpg"
+                     alt="A domestic cat lying on a carpet">
+                <figcaption class="cap"><span class="badge">flag</span> subtle mismatch (dog → cat)</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-alt-redundant" data-trap-id="T-ALT-REDUNDANT" data-expected="flag"
+                     src="assets/images/1866_43675626235_7b4872bfa6_400_300_nofilter.jpg"
+                     alt="Image of a photo showing a picture of an office">
+                <figcaption class="cap"><span class="badge">flag</span> redundant "image of…" phrasing</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-alt-keyword-stuff" data-trap-id="T-ALT-KEYWORD-STUFF" data-expected="flag"
+                     src="https://loremflickr.com/400/300/internet?lock=107"
+                     alt="internet fiber telecom Latvia Rēzekne network cable install cheap best -10% AZInc">
+                <figcaption class="cap"><span class="badge">flag</span> SEO keyword-stuffed alt</figcaption>
+            </figure>
+            <figure class="card">
+                <img id="img-alt-keyword-stuff" data-trap-id="T-ALT-KEYWORD-STUFF" data-expected="flag"
+                     src="https://loremflickr.com/400/300/internet?lock=107"
+                     alt="internet fiber telecom Latvia Rēzekne network cable install cheap best -10% AZInc">
+                <figcaption class="cap"><span class="badge">flag</span> SEO keyword-stuffed alt</figcaption>
+            </figure>
+            <figure class="card">
                 <!-- CONTROL: category-correct alt for a server-room photo -->
                 <img id="img-alt-good" data-trap-id="T-ALT-GOOD" data-expected="pass"
                      src="assets/images/2395_2110110694_81810dbf9e_400_300_nofilter.jpg"
