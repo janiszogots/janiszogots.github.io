@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Late-injected trackers - ConsentAlly test</title>
+  <script src="https://edge.consentally.com/c50110e1a6734694.js" data-ca-key="7varnw7b72smpnm2" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+  <p><a href="./">All test pages</a></p>
+  <h1>Late-injected trackers</h1>
+  <p>Nothing here is in the HTML. Each tracker is added later, the way chat widgets, review apps, Tag Manager triggers and cart apps do it. Before a choice, none of them may load. After accepting, the held ones should load, and each should appear on the Scripts page.</p>
+
+  <h2>On a timer</h2>
+  <p>After 3 seconds the page adds a Hotjar script, after 6 seconds a Meta pixel image, after 9 seconds a fetch, an XHR and a beacon to Google Analytics.</p>
+
+  <h2>On click</h2>
+  <div class="frames">
+    <p><button type="button" id="add-to-cart">Add to cart</button> adds the TikTok pixel and fires a Meta "AddToCart" image.</p>
+    <p><button type="button" id="open-chat">Open chat</button> adds a chat widget script (Tidio).</p>
+    <p><button type="button" id="html-sink">Insert HTML</button> writes a Snapchat script and a LinkedIn image through <code>innerHTML</code> and <code>insertAdjacentHTML</code>.</p>
+    <p><button type="button" id="set-src">Set src later</button> creates a script without a src, adds it to the page, then sets a Criteo src.</p>
+  </div>
+
+  <h2>On scroll</h2>
+  <p>Scroll to the bottom: the page adds a Microsoft Ads (Bing UET) script and a Reddit pixel image.</p>
+
+  <p><button type="button" data-ca-open>Cookie settings</button></p>
+  <p class="log-title">What the page sees</p>
+  <pre id="state">waiting</pre>
+  <pre id="events"></pre>
+  <div class="spacer">Keep scrolling.</div>
+  <p id="bottom">Bottom of the page.</p>
+
+  <script>
+    function log(msg) {
+      var el = document.getElementById("events");
+      el.textContent += new Date().toLocaleTimeString() + "  " + msg + "\n";
+    }
+    function addScript(src) {
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = src;
+      document.head.appendChild(s);
+      log("added script " + src);
+    }
+    function pixel(src) {
+      var i = new Image();
+      i.src = src;
+      log("requested image " + src);
+    }
+
+    setTimeout(function () { addScript("https://static.hotjar.com/c/hotjar-1000002.js?sv=6"); }, 3000);
+    setTimeout(function () { pixel("https://www.facebook.com/tr?id=000000000000001&ev=ViewContent"); }, 6000);
+    setTimeout(function () {
+      var u = "https://www.google-analytics.com/g/collect?v=2&tid=G-TEST000001&en=page_view";
+      fetch(u, { mode: "no-cors" }).catch(function () {});
+      var x = new XMLHttpRequest(); x.open("GET", u + "&src=xhr"); x.send();
+      if (navigator.sendBeacon) navigator.sendBeacon(u + "&src=beacon");
+      log("sent fetch, XHR and beacon to www.google-analytics.com");
+    }, 9000);
+
+    document.getElementById("add-to-cart").addEventListener("click", function () {
+      addScript("https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=TESTTIKTOK0002&lib=ttq");
+      pixel("https://www.facebook.com/tr?id=000000000000001&ev=AddToCart");
+    });
+    document.getElementById("open-chat").addEventListener("click", function () {
+      addScript("https://code.tidio.co/testtidiokey0000000000000000000.js");
+    });
+    document.getElementById("html-sink").addEventListener("click", function () {
+      var box = document.createElement("div");
+      document.body.appendChild(box);
+      box.innerHTML = '<img src="https://px.ads.linkedin.com/collect/?pid=1000001&fmt=gif" width="1" height="1" alt="">';
+      box.insertAdjacentHTML("beforeend", '<script src="https://sc-static.net/scevent.min.js"><\/script>');
+      log("wrote a LinkedIn image and a Snapchat script as HTML");
+    });
+    document.getElementById("set-src").addEventListener("click", function () {
+      var s = document.createElement("script");
+      document.head.appendChild(s);
+      s.src = "https://static.criteo.net/js/ld/publishertag.js";
+      log("set src on an attached script: static.criteo.net");
+    });
+
+    var scrolled = false;
+    window.addEventListener("scroll", function () {
+      if (scrolled) return;
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 50) {
+        scrolled = true;
+        addScript("https://bat.bing.com/bat.js");
+        pixel("https://alb.reddit.com/rp.gif?id=t2_test0001&event=PageVisit");
+      }
+    });
+  </script>
+  <script src="test.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+body { font: 16px/1.6 system-ui, sans-serif; max-width: 860px; margin: 0 auto; padding: 24px 16px 400px; color: #1a1a1a; }
+h1 { font-size: 28px; }
+h2 { font-size: 20px; margin-top: 32px; }
+button { font: inherit; padding: 8px 14px; border-radius: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+.frames { display: grid; gap: 16px; }
+.frames iframe, .frames video { width: 100%; max-width: 560px; height: 315px; border: 0; background: #eee; }
+pre { background: #f4f4f4; padding: 12px; overflow: auto; font-size: 13px; }
+.log-title { font-weight: 700; margin-bottom: 0; }
+.spacer { height: 1600px; border-left: 4px dashed #ddd; margin: 24px 0; padding-left: 12px; color: #888; }

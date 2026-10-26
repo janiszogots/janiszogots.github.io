@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Embeds and media - ConsentAlly test</title>
+  <script src="https://edge.consentally.com/c50110e1a6734694.js" data-ca-key="7varnw7b72smpnm2" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+  <p><a href="./">All test pages</a></p>
+  <h1>Embeds and media</h1>
+  <p>Before a choice, each video and map should show ConsentAlly's "Load" placeholder and nothing from YouTube, Vimeo or Google may load. Clicking "Load" on one loads only that one.</p>
+
+  <h2>In the HTML</h2>
+  <div class="frames">
+    <iframe src="https://www.youtube.com/embed/aqz-KE-bpKQ" title="YouTube test video" allowfullscreen></iframe>
+    <iframe src="https://player.vimeo.com/video/76979871" title="Vimeo test video" allowfullscreen></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2176.1!2d24.1052!3d56.9496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTbCsDU2JzU4LjYiTiAyNMKwMDYnMTguNyJF!5e0!3m2!1sen!2slv!4v1700000000000" title="Google Maps test map"></iframe>
+  </div>
+
+  <h2>Added on click</h2>
+  <div class="frames">
+    <p><button type="button" id="play">Play video</button> builds a YouTube iframe from a template, the way Shopify's Dawn theme does.</p>
+    <p><button type="button" id="media">Add media and links</button> adds a video with a third-party src, a <code>link rel=preload</code>, a <code>link rel=stylesheet</code> from a tracker host, and an <code>iframe srcdoc</code> that contains a Meta script and pixel.</p>
+    <p><button type="button" id="worker">Start a web worker</button> starts a worker that fetches from a tracker host.</p>
+  </div>
+  <div id="slot" class="frames"></div>
+
+  <template id="yt-template">
+    <iframe src="https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1" title="YouTube video added on click" allowfullscreen></iframe>
+  </template>
+
+  <p><button type="button" data-ca-open>Cookie settings</button></p>
+  <p class="log-title">What the page sees</p>
+  <pre id="state">waiting</pre>
+
+  <script>
+    var slot = document.getElementById("slot");
+    document.getElementById("play").addEventListener("click", function () {
+      slot.appendChild(document.getElementById("yt-template").content.cloneNode(true));
+    });
+    document.getElementById("media").addEventListener("click", function () {
+      var v = document.createElement("video");
+      v.controls = true;
+      v.src = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4";
+      slot.appendChild(v);
+
+      var pre = document.createElement("link");
+      pre.rel = "preload";
+      pre.as = "script";
+      pre.href = "https://connect.facebook.net/en_US/fbevents.js";
+      document.head.appendChild(pre);
+
+      var css = document.createElement("link");
+      css.rel = "stylesheet";
+      css.href = "https://static.hotjar.com/c/hotjar-1000003.css";
+      document.head.appendChild(css);
+
+      var f = document.createElement("iframe");
+      f.title = "Inline HTML frame";
+      f.srcdoc = '<script src="https://connect.facebook.net/en_US/fbevents.js"><\/script><img src="https://www.facebook.com/tr?id=000000000000001&ev=Srcdoc" width="1" height="1" alt="">';
+      slot.appendChild(f);
+    });
+    document.getElementById("worker").addEventListener("click", function () {
+      var code = 'fetch("https://www.google-analytics.com/g/collect?v=2&tid=G-TEST000001&en=worker", {mode: "no-cors"}).catch(function(){});';
+      new Worker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })));
+    });
+  </script>
+  <script src="test.js"></script>
+</body>
+</html>
