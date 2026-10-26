@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual tags - ConsentAlly test</title>
+  <script src="https://edge.consentally.com/31ba747d06d142ac.js" data-ca-key="7varnw7b72smpnm2" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="test.css">
+  <!-- The same trackers as trackers.html, written as ConsentAlly manual tags: the browser fetches nothing until the category is allowed. -->
+  <script type="text/plain" data-ca-src="https://www.googletagmanager.com/gtag/js?id=G-TEST000001" async></script>
+  <script type="text/plain" data-ca-category="analytics">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TEST000001');
+  </script>
+  <script type="text/plain" data-ca-category="marketing">
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '000000000000001');
+    fbq('track', 'PageView');
+  </script>
+  <script type="text/plain" data-ca-category="marketing" data-ca-src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=TEST01" async></script>
+</head>
+<body>
+  <p><a href="./">All test pages</a></p>
+  <h1>Manual tags</h1>
+  <p>Google Analytics, Meta Pixel, Klaviyo and a YouTube video written as manual tags (<code>type="text/plain"</code> with <code>data-ca-src</code> or <code>data-ca-category</code>). Before a choice, none of their hosts may appear below, not even as a download. After accepting, they load.</p>
+  <div class="frames">
+    <iframe data-ca-category="marketing" data-ca-src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ" title="YouTube test video" allowfullscreen></iframe>
+  </div>
+  <img data-ca-category="marketing" data-ca-src="https://www.facebook.com/tr?id=000000000000001&ev=PageView" width="1" height="1" alt="">
+  <p><button type="button" data-ca-open>Cookie settings</button></p>
+  <p class="log-title">What the page sees</p>
+  <pre id="state">waiting</pre>
+  <script src="test.js"></script>
+</body>
+</html>
