@@ -11,11 +11,11 @@
   <h1>ConsentAlly test pages</h1>
   <p>Each page loads the ConsentAlly shim first, then tries to load trackers. Open DevTools (Network and Application tabs) and check that nothing below loads and no tracker cookie is set before you choose in the banner.</p>
   <ul>
-    <li><a href="trackers.html">Static trackers</a>: Google Analytics 4, Google Tag Manager, Meta Pixel, TikTok, Hotjar, Microsoft Clarity, LinkedIn, Pinterest, Klaviyo, in the page's HTML</li>
-    <li><a href="late.html">Late-injected trackers</a>: scripts, pixels, fetch, XHR and beacons added after load, on a timer, on scroll, on click and on "add to cart"</li>
-    <li><a href="embeds.html">Embeds and media</a>: YouTube, Vimeo and Google Maps, video, link preloads, an inline-HTML frame and a web worker</li>
-    <li><a href="manual.html">Manual tags</a>: the same trackers written as <code>type="text/plain"</code> manual tags, so nothing is downloaded before consent</li>
-    <li><a href="unknown.html">Unknown third parties</a>: scripts from hosts no tracker list knows, which must be held as marketing</li>
+    <li><a href="/ca-trackers.html">Static trackers</a>: Google Analytics 4, Google Tag Manager, Meta Pixel, TikTok, Hotjar, Microsoft Clarity, LinkedIn, Pinterest, Klaviyo, in the page's HTML</li>
+    <li><a href="/ca-late.html">Late-injected trackers</a>: scripts, pixels, fetch, XHR and beacons added after load, on a timer, on scroll, on click and on "add to cart"</li>
+    <li><a href="/ca-embeds.html">Embeds and media</a>: YouTube, Vimeo and Google Maps, video, link preloads, an inline-HTML frame and a web worker</li>
+    <li><a href="/ca-manual.html">Manual tags</a>: the same trackers written as <code>type="text/plain"</code> manual tags, so nothing is downloaded before consent</li>
+    <li><a href="/ca-unknown.html">Unknown third parties</a>: scripts from hosts no tracker list knows, which must be held as marketing</li>
   </ul>
   <p><button type="button" data-ca-open>Cookie settings</button> (opens the preference centre)</p>
   <p class="log-title">Consent state</p>

@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Unknown third parties - ConsentAlly test</title>
   <script src="https://edge.consentally.com/31ba747d06d142ac.js" data-ca-key="7varnw7b72smpnm2" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="test.css">
+  <link rel="stylesheet" href="/consentally/test.css">
   <!-- Hosts no tracker list knows. ConsentAlly holds every unknown third party as marketing until consent or until the merchant classifies it. -->
   <script async src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script async src="https://unpkg.com/dayjs@1.11.13/dayjs.min.js"></script>
 </head>
 <body>
-  <p><a href="./">All test pages</a></p>
+  <p><a href="/consentally/">All test pages</a></p>
   <h1>Unknown third parties</h1>
   <p>Two harmless libraries load from public CDNs (jsDelivr and unpkg). No tracker list knows them, so before a choice both should be held and both should appear on the Scripts page as held back, waiting to be classified.</p>
   <p>Classify one of them as necessary on the Scripts page and publish: on the next visit it should load straight away, before any choice.</p>
   <p><button type="button" data-ca-open>Cookie settings</button></p>
   <p class="log-title">What the page sees</p>
   <pre id="state">waiting</pre>
-  <script src="test.js"></script>
+  <script src="/consentally/test.js"></script>
 </body>
 </html>
